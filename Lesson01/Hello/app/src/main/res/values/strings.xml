@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="now"> Текущее время: </string>
+    <string name="hours"> ч. </string>
+    <string name="minute"> мин. </string>
+    <string name="weather"> Привет! Погода будет позже </string>
+
+
+
+</resources>

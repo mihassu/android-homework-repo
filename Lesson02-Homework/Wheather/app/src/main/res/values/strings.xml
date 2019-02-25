@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">Wheather</string>
-    <string name="currentCity">Санкт-Петербург</string>
+    <string name="app_name">Weather</string>
     <string name="temperatureStr">Температура</string>
-    <string name="temperayureValue">-5</string>
     <string name="windStr">Ветер</string>
-    <string name="windValue">СЗ 5м/с</string>
+    <string name="pressureStr">Давление</string>
+    <string name="showWeather">Показать</string>
+    <string name="to_back">Назад</string>
+    <string name="enterCity">Введите город</string>
+
+
+
 
 
 </resources>

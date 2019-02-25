@@ -1,17 +1,25 @@
 package com.wheather;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.logging.*;
+import org.w3c.dom.Text;
 
 
-public class MainActivity extends AppCompatActivity implements WheatherStrings {
+public class MainActivity extends AppCompatActivity {
 
-    private static final Logger logger = Logger.getLogger(MainActivity.class.getName());
-    private static Handler handler = new ConsoleHandler();
+
+    //private int counter = 0;
+    private TextView textCountr;
+    private String logTag = "mylog";
 
 
     @Override
@@ -19,9 +27,8 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView wheatherInf = findViewById(R.id.wheatherInfo);
-        BuilderWheatherInfo builderWhInfo = new BuilderWheatherInfo(this);
-        wheatherInf.setText(builderWhInfo.getWheatherInfo());
+        TextView weatherInf = findViewById(R.id.weatherInfo);
+        weatherInf.setText(R.string.enterCity);
 
         String instanceState;
         if(savedInstanceState == null) {
@@ -32,18 +39,31 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
         Toast t = Toast.makeText(getApplicationContext(), "onCreate" + " " + instanceState, Toast.LENGTH_SHORT);
         t.show();
 
+        //для сохранения instance при пересоздании активити (напр. смена ориентации экрана)
+        final MainActivityPresenter presenter = MainActivityPresenter.getInstance();
 
-        try {
-            logger.addHandler(handler);
-            logger.setLevel(Level.ALL);
-            handler.setLevel(Level.ALL);
-            //handler.setFormatter(new XMLFormatter());
+        textCountr = findViewById(R.id.textCounter); //поле
 
-            logger.log(Level.ALL, "Запуск onCreate");
+//        //сохранение состояния через saveInstanceState
+//        textCountr.setText(((Integer)counter).toString()); //этот каст обязательно, иначе RuntimeExc
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        textCountr.setText(((Integer)presenter.getCounter()).toString());
+
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                counter++;
+//                textCountr.setText(((Integer)counter).toString()); //этот каст обязательно, иначе RuntimeExc
+
+                //Сохранение instance через дополнительный класс:
+                presenter.incrementCounter();
+                textCountr.setText(((Integer)presenter.getCounter()).toString());
+            }
+        });
+
+        Log.i(logTag, "Запуск onCreate");
 
     }
 
@@ -51,7 +71,16 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onStart() {
         super.onStart();
         Toast.makeText(getApplicationContext(), "onStart", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "Запуск onStart");
+        Log.i(logTag, "Запуск onStart");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle saveInstanceState){
+        super.onSaveInstanceState(saveInstanceState);
+        Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
+        Log.i(logTag, "onSaveInstanceState()");
+
+        //saveInstanceState.putInt("Counter", counter);
 
     }
 
@@ -59,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Toast.makeText(getApplicationContext(), "Повторный запуск - onRestoreInstanceState()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "Повторный запуск - onRestoreInstanceState()");
+        Log.i(logTag, "Повторный запуск - onRestoreInstanceState()");
+//        counter = savedInstanceState.getInt("Counter", counter);
 
     }
 
@@ -67,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onResume() {
         super.onResume();
         Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "Запуск onResume()");
+        Log.i(logTag, "Запуск onResume()");
 
     }
 
@@ -75,15 +105,8 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onPause() {
         super.onPause();
         Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "Запуск onPause()");
+        Log.i(logTag, "Запуск onPause()");
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle saveInstanceState){
-        super.onSaveInstanceState(saveInstanceState);
-        Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "onSaveInstanceState()");
 
     }
 
@@ -91,7 +114,8 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onStop() {
         super.onStop();
         Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "onStop()");
+        Log.i(logTag, "Запуск onStop()");
+
 
     }
 
@@ -99,7 +123,8 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onRestart() {
         super.onRestart();
         Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "onRestart()");
+        Log.i(logTag, "Запуск onRestart()");
+
 
     }
 
@@ -107,42 +132,30 @@ public class MainActivity extends AppCompatActivity implements WheatherStrings {
     protected void onDestroy() {
         super.onDestroy();
         Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
-        logger.log(Level.ALL, "onDestroy()");
-
+        Log.i(logTag, "Запуск onDestroy()");
     }
 
 
+    public void showWeatherButtonOnClick(View v) {
+        switch (v.getId()) {
+            case R.id.showWeatherButton:
+                EditText curCity = findViewById(R.id.enterCity);
+                CheckBox showWind = findViewById(R.id.showWindChB);
+                CheckBox showPressure = findViewById(R.id.showPressureChB);
 
+                Intent intent = new Intent(this, SecondActivity.class);
 
+                intent.putExtra("curCity", curCity.getText().toString());
+                intent.putExtra("showWind", showWind.isChecked());
+                intent.putExtra("showPressure", showPressure.isChecked());
 
+                startActivity(intent);
+                break;
 
+            default:
+                break;
+        }
 
-    @Override
-    public String getCurrentCity() {
-        return getResources().getString(R.string.currentCity);
-    }
-
-    @Override
-    public String getTemperatureStr() {
-        return getResources().getString(R.string.temperatureStr);
-
-    }
-
-    @Override
-    public String getTemperatureValue() {
-        return getResources().getString(R.string.temperayureValue);
-
-    }
-
-    @Override
-    public String getWindStr() {
-        return getResources().getString(R.string.windStr);
-
-    }
-
-    @Override
-    public String getWindValue() {
-        return getResources().getString(R.string.windValue);
 
     }
 }

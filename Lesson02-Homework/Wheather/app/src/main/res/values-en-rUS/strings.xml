@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="temperatureStr">Temperature</string>
+    <string name="windStr">Wind</string>
+    <string name="pressureStr">Pressure</string>
+    <string name="showWeather">Show</string>
+    <string name="to_back">Back</string>
+    <string name="enterCity">Enter city</string>
+    <string name="meow">Meow</string>
+
+</resources>

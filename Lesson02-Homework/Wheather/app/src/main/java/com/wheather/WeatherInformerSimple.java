@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class WeatherInformerSimple implements WeatherInfo {
 
     private ArrayList<City> cities;
+    private WeatherStrings wStrings;
+
 
     private class City{
 
@@ -38,7 +40,8 @@ public class WeatherInformerSimple implements WeatherInfo {
     }
 
 
-    public WeatherInformerSimple() {
+    public WeatherInformerSimple(WeatherStrings wStr) {
+        this.wStrings = wStr;
 
         cities = new ArrayList<>();
         cities.add(new City("Omsk", "5град", "3 м/с", "756 мм.рт.ст."));
@@ -50,16 +53,19 @@ public class WeatherInformerSimple implements WeatherInfo {
         StringBuilder sb = new StringBuilder(city + "\n");
         for(City c: cities) {
             if(c.getCityName().equals(city)) {
-                sb.append("Температура: ");
+                sb.append(wStrings.getTemperature());
+                sb.append(": ");
                 sb.append(c.getTempValue());
                 sb.append("\n");
                 if(weatherConditions[0]){
-                    sb.append("Ветер: ");
+                    sb.append(wStrings.getWind());
+                    sb.append(": ");
                     sb.append(c.getWindValue());
                     sb.append("\n");
                 }
                 if(weatherConditions[1]){
-                    sb.append("Давление: ");
+                    sb.append(wStrings.getPressure());
+                    sb.append(": ");
                     sb.append(c.getPressureValue());
                 }
                 break;

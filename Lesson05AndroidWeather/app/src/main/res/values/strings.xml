@@ -17,4 +17,16 @@
     <string name="to_back">Назад</string>
     <string name="enterCity">Введите город</string>
     <string name="meow">Мяу</string>
+    <string name="selectcity">Выбрать</string>
+    <string name="selectcityStr">Выберете город</string>
+
+    <string name="settings">Настройки</string>
+    <string name="select_font">Выберить размер шрифта</string>
+    <string name="pref_size">Размер</string>
+    <string name="set_new_fontsize">Устанавливает новый размер шрифта</string>
+    <string name="font_size">Размер шрифта</string>
+
+
+
+
 </resources>

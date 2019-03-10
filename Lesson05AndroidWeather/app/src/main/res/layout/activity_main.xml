@@ -9,24 +9,84 @@
     android:orientation="vertical"
     >
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
         >
-        <fragment
-            android:name="com.android.lesson05androidweather.CitiesFragment"
-            android:id="@+id/cites"
+
+        <TextView android:id="@+id/tViewSelectedCity"
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            />
 
-        </fragment>
+        <Button android:id="@+id/buttonSelectCity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="@string/selectcity"/>
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/showWindChB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/windStr"
+        />
+
+    <CheckBox
+        android:id="@+id/showPressureChB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pressureStr"
+        />
+
+    <Button android:id="@+id/buttonShowWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/showWeather"
+        />
+
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/select_city_cont"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="?android:attr/detailsElementBackground">-->
+
+    <!--</FrameLayout>-->
+
+    <FrameLayout
+
+        android:id="@+id/weather_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+
+        ></FrameLayout>
+
+    <!--<FrameLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--&gt;-->
+        <!--<fragment-->
+            <!--android:name="com.android.lesson05androidweather.CitiesFragment"-->
+            <!--android:id="@+id/cites"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+        <!--</fragment>-->
 
 
 
-    </FrameLayout>
-
-
+    <!--</FrameLayout>-->
 
 
 </LinearLayout>

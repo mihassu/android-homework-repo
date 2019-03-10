@@ -51,16 +51,16 @@ public class WeatherInformerSimple implements WeatherInfo {
         cities = new ArrayList<>();
         cities.add(new City(0,"Москва", "5град", "1 м/с", "777 мм.рт.ст."));
         cities.add(new City(1,"Санкт-Петербург", "10град", "2 м/с", "766 мм.рт.ст."));
-        cities.add(new City(2,"Новосиборск", "15град", "3 м/с", "744 мм.рт.ст."));
+        cities.add(new City(2,"Новосибирск", "15град", "3 м/с", "744 мм.рт.ст."));
         cities.add(new City(3,"Самара", "20град", "4 м/с", "733 мм.рт.ст."));
 
     }
 
     @Override
-    public String getWeatherInfoByCity(int index, boolean[] weatherConditions){
+    public String getWeatherInfoByCity(String cityName, int index, boolean[] weatherConditions){
         StringBuilder sb = new StringBuilder();
         for(City c: cities) {
-            if(c.getCityIndex() == index) {
+            if(c.getCityName().equals(cityName)) {
                 sb.append(c.getCityName());
                 sb.append(":\n");
                 sb.append(wStrings.getTemperature());

@@ -61,8 +61,8 @@ public class WeatherInformerSimple implements WeatherInfo {
         StringBuilder sb = new StringBuilder();
         for(City c: cities) {
             if(c.getCityName().equals(cityName)) {
-                sb.append(c.getCityName());
-                sb.append(":\n");
+//                sb.append(c.getCityName());
+//                sb.append(":\n");
                 sb.append(wStrings.getTemperature());
                 sb.append(": ");
                 sb.append(c.getTempValue());

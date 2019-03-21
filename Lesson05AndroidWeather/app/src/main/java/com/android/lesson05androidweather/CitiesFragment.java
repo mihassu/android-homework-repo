@@ -1,5 +1,6 @@
 package com.android.lesson05androidweather;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,53 +65,27 @@ public class CitiesFragment extends ListFragment {
         cityName = city.getText().toString(); //достать текст с кнопки
         currentPosition = position;
 
+//        //Получить данные которые переданы в данную activity через startActivityForResult
+//        Bundle extras = getActivity().getIntent().getExtras();
+//        if(extras != null){
+//
+//        }
+
+        //Выполняем действия, после вызова startActivityForResult из MainActivity
         Intent intent = new Intent();
-        intent.setClass(getActivity(), MainActivity.class);
         intent.putExtra(CITY_NAME, cityName);
         intent.putExtra(CURRENT_CITY_POS, currentPosition);
-        startActivity(intent);
+        getActivity().setResult(Activity.RESULT_OK, intent);
         getActivity().finish();
 
-//        TextView tViewSelectedCity = getActivity().findViewById(R.id.tViewSelectedCity);
-//        tViewSelectedCity.setText(cityName);
 
         //видимо тип выбора элемента из списка (один клик или два))
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-        //Выделить текущий элемнт списка (Заработало после добавления CHOICE_MODE_SINGLE)
+        //Выделить текущий элемнет списка (Заработало после добавления CHOICE_MODE_SINGLE)
         getListView().setItemChecked(currentPosition, true);
 
     }
-
-
-//    public void showWeatherInfo() {
-////        //Выделить текущий элемнт списка (Заработало после добавления CHOICE_MODE_SINGLE)
-////        getListView().setItemChecked(currentPosition, true);
-//
-//        if (isExistPlace) {
-//            //Проверка что фрагмент есть в activity
-//            WeatherInfoFragment details = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_container_land);
-//
-//            //Вывести информацию
-//            //if(details == null || details.  )
-//            details = WeatherInfoFragment.create(cityName, currentPosition, getConditionsFromCheckBoxes());
-//
-//            //Добавление фрагмента с информацией
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.replace(R.id.weather_container_land, details);
-//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//            ft.commit();
-//        }
-//        else {
-//
-//            Intent intent = new Intent();
-//            intent.setClass(getActivity(), WeatherInfoActivity.class);
-//            intent.putExtra(CITY_NAME, cityName);
-//            intent.putExtra(CURRENT_CITY_POS, currentPosition);
-//            intent.putExtra(CONDITIONS, getConditionsFromCheckBoxes());
-//            startActivity(intent);
-//        }
-//    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -118,13 +93,7 @@ public class CitiesFragment extends ListFragment {
         outState.putInt(CURRENT_CITY_POS, currentPosition); //ключи надо все объявить через переменные
     }
 
-//    public boolean[] getConditionsFromCheckBoxes() {
-//
-//        CheckBox showWind = getActivity().findViewById(R.id.showWindChB);
-//        CheckBox showPressure = getActivity().findViewById(R.id.showPressureChB);
-//        boolean[] c = {showWind.isChecked(), showPressure.isChecked()};
-//
-//        return c;
-//    }
 
 }
+
+

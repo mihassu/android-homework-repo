@@ -37,18 +37,11 @@
             android:layout_height="wrap_content"
             android:text="@string/pressureStr" />
 
-        <Button
-            android:id="@+id/buttonShowWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/showWeather" />
-
-
-        <!--<fragment-->
-            <!--android:id="@+id/cites"-->
-            <!--android:name="com.android.lesson05androidweather.CitiesFragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"></fragment>-->
+        <!--<Button-->
+            <!--android:id="@+id/buttonShowWeather"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/showWeather" />-->
 
 
     </LinearLayout>

@@ -1,6 +1,10 @@
 package com.android.myweather_v2;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.android.myweather_v2.MainActivity.CITY_NAME;
 import static com.android.myweather_v2.MainActivity.CONDITIONS;
@@ -16,6 +21,15 @@ import static com.android.myweather_v2.MainActivity.CURRENT_CITY_POS;
 
 
 public class WeatherInfoFragment extends Fragment implements WeatherStrings {
+
+    private final String TAG = "WeatherInfoFragment";
+
+    private BroadcastReceiver myBroadcastReceiver;
+    private TextView tView;
+
+    //контейнер GridLayout куда будет выводится погода
+    GridLayout weather;
+
 
     //Фабричный метод - метод который создает объект класса
     public static WeatherInfoFragment create(String cityName, int index, boolean[] conditions) {
@@ -44,41 +58,54 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.weather_info_fragment, container, false);
 //        TextView tView = new TextView(getActivity()); //если фрагмент без макета
-        TextView tView = v.findViewById(R.id.weather_info);
-
-        //Показать информацию
-        WeatherInfo weatherInCity = new WeatherInformerSimple(this, getActivity());
-//        tView.setText(weatherInCity.getWeatherInfoByCity(getCityName(), getIndex(), getConditions()));
+        tView = v.findViewById(R.id.weather_info);
 
         //Получить котейнер GridLayout куда будет выводится погода
-        GridLayout weather = v.findViewById(R.id.weather_fragment);
-
-        //Показать температуру
-        tView.setText(weatherInCity.getTemperatureByCity(getCityName(), getIndex()));
-
-//        weather.addView(createWeatherCard(Gravity.CENTER, weatherInCity.getTemperatureByCity(getCityName(), getIndex()), 26));
+        weather = v.findViewById(R.id.weather_fragment);
 
 
+        //Запустить IntentService (Сервис который узнает погоду)
+        Intent intentForService = new Intent(getActivity(), WeatherInfoService.class);
+        intentForService.putExtra(CITY_NAME, getCityName());
+        intentForService.putExtra(CONDITIONS, getConditions());
+        getActivity().startService(intentForService);
 
-        if (getConditions()[0]) {
-            weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.windStr).toString(), 16));
-            weather.addView(createWeatherCard(Gravity.END, weatherInCity.getWindByCity(getCityName(), getIndex()), 16));
-        }
+        //Создаем BroadcastReceiver для получения данных от Сервиса
+        myBroadcastReceiver = new MyBroadcastReceiver();
 
-        if (getConditions()[1]) {
-            weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.pressureStr).toString(), 16));
-            weather.addView(createWeatherCard(Gravity.END, weatherInCity.getPressureByCity(getCityName(), getIndex()), 16));
-        }
+        //регистрируем BroadcastReceiver
+        IntentFilter intentFilter = new IntentFilter(WeatherInfoService.ACTION_MYINTENTSERVICE);
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        getActivity().registerReceiver(myBroadcastReceiver, intentFilter);
 
-        Log.e("City Name", getCityName());
+        Log.e(TAG, "register BR");
 
         return v;
+    }
 
+    //Новый BroadcastReceiver
+    public class MyBroadcastReceiver extends BroadcastReceiver {
 
+        //метод вызывается при получении Broadcast-сообщение от Сервиса
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            tView.setText(intent.getStringExtra(WeatherInfoService.TEMPERATURE_VALUE));
+
+            if (getConditions()[0]) {
+                weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.windStr).toString(), 16));
+                weather.addView(createWeatherCard(Gravity.END, intent.getStringExtra(WeatherInfoService.WIND_VALUE), 16));
+            }
+
+            if (getConditions()[1]) {
+                weather.addView(createWeatherCard(Gravity.START, getResources().getText(R.string.pressureStr).toString(), 16));
+                weather.addView(createWeatherCard(Gravity.END, intent.getStringExtra(WeatherInfoService.PRESSURE_VALUE), 16));
+            }
+        }
     }
 
     private View createWeatherCard(int gravity, String weatherValue, float textSize) {
@@ -96,6 +123,21 @@ public class WeatherInfoFragment extends Fragment implements WeatherStrings {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        //отключаем BroadcastReceiver
+        getActivity().unregisterReceiver(myBroadcastReceiver);
     }
 
     @Override

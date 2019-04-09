@@ -1,8 +1,10 @@
 package com.android.myweather_v2;
 
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.drm.DrmStore;
 import android.hardware.Sensor;
@@ -27,8 +29,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     private TextView tViewSelectedCity;
     private TextView tViewSensorLight;
     private TextView allSensors;
+    private Button selectCityButton;
+    private ImageView pictireFromInt;
 
 
     public static final int REQUEST_ACCES_TYPE = 1;
@@ -64,16 +72,12 @@ public class MainActivity extends AppCompatActivity
     private List<Sensor> sensors;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button selectCityButton = findViewById(R.id.buttonSelectCity);
-        tViewSelectedCity = findViewById(R.id.tViewSelectedCity);
-        tViewSensorLight = findViewById(R.id.sensor_light);
-        allSensors = findViewById(R.id.all_sensors);
+        initGui();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,7 +93,6 @@ public class MainActivity extends AppCompatActivity
         if(condOptions.contains(CURRENT_CITY)){
             cityName = condOptions.getString(CURRENT_CITY, null);
         }
-
 
 
         //Кпопка выбора города вызывает activity со списком городов
@@ -151,11 +154,24 @@ public class MainActivity extends AppCompatActivity
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         //Сам датчик
         sensorLight = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        //Регистрируем слушатель датчика
-        sensorManager.registerListener(listenerTemp, sensorLight, SensorManager.SENSOR_DELAY_NORMAL);
+
 
         //Получить все датчики
         sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
+
+        //Загрузить картинку из Интернета
+        Picasso.with(this).
+                load("https://www.bystricak.sk/assets/images/bb/posts/img-1/1528100698-pocasie-sa-vyraznejsie-menit-nebude-vysoke-teploty-a-burky-budu-na-dennom-poriadku.JPG")
+                .into(pictireFromInt);
+
+    }
+
+    private void initGui() {
+        selectCityButton = findViewById(R.id.buttonSelectCity);
+        tViewSelectedCity = findViewById(R.id.tViewSelectedCity);
+        tViewSensorLight = findViewById(R.id.sensor_light);
+        allSensors = findViewById(R.id.all_sensors);
+        pictireFromInt = findViewById(R.id.picture_from_int);
     }
 
     @Override
@@ -180,10 +196,13 @@ public class MainActivity extends AppCompatActivity
         tViewSelectedCity.setTextSize(fontSize);
 
         //Получить значения установленные в опциях
-        if(condOptions.contains(SHOWWIND_OPTION) && condOptions.contains(SHOWPRESSURE_OPTION)){
+        if (condOptions.contains(SHOWWIND_OPTION) && condOptions.contains(SHOWPRESSURE_OPTION)){
             showWind = condOptions.getBoolean(SHOWWIND_OPTION, false);
             showPressure = condOptions.getBoolean(SHOWPRESSURE_OPTION, false);
         }
+
+        //Регистрируем слушатель датчика
+        sensorManager.registerListener(listenerTemp, sensorLight, SensorManager.SENSOR_DELAY_NORMAL);
 
         if(cityName != null){
             tViewSelectedCity.setText(cityName);
@@ -338,11 +357,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        //Сохраняем текущий город перед закрытием
         SharedPreferences.Editor editor = condOptions.edit();
         if(tViewSelectedCity != null){
             editor.putString(CURRENT_CITY, tViewSelectedCity.getText().toString());
             editor.apply();
         }
+
+
     }
 
 

@@ -29,9 +29,16 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:text="@string/selectcity" />
+
     </LinearLayout>
 
+    <!--Картинка из интернета-->
+    <ImageView android:id="@+id/picture_from_int"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop" />
 
+    <!--Фрагмент с погодой-->
     <FrameLayout
         android:id="@+id/weather_container"
         android:layout_width="match_parent"
@@ -52,15 +59,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"/>
-
-
-
-
-    <!--<TextView android:id="@+id/text_test"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="18sp"-->
-        <!--android:text="@string/text_test"/>-->
-
 
 </LinearLayout>

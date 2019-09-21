@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+    <Button android:id="@+id/flat_button1"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/flat_button1" />
+<!--    style="@style/Widget.AppCompat.Button.Borderless"-->
+
+
+    <Button android:id="@+id/flat_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/flat_button2"
+        android:background="@drawable/flat_button"
+        />
+<!--    android:background="@drawable/flat_button"-->
+
+    <Button android:id="@+id/raised_button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/raised_button1"
+        />
+
+    <Button android:id="@+id/raised_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/raised_button2"
+        android:backgroundTint="@color/colorPrimary"
+        />
+</LinearLayout>
+

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Material Lesson03</string>
+    <string name="flat_button1">flat1</string>
+    <string name="flat_button2">flat2</string>
+    <string name="raised_button1">raised1</string>
+    <string name="raised_button2">raised2</string>
+</resources>

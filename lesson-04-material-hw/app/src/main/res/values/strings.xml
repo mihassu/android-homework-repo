@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Lesson 4 Material</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Черный кот</string>
+    <string name="nav_header_subtitle">Его зовут Барсик</string>
+    <string name="nav_header_desc">О коте</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_meow">Мяу</string>
+    <string name="title_activity_progress_bar">ProgressBarActivity</string>
+    <string name="title_activity_progress">ActivityProgress</string>
+    <string name="title_activity_toolbar">ToolbarActivity</string>
+
+    <string name="show_progress">show</string>
+    <string name="hide_progress">hide</string>
+</resources>

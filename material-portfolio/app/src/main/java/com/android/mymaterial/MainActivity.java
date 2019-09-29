@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
         (гамбургер превращается в стрелку)*/
 
         navigationView = findViewById(R.id.nav_view);//Выдвижное меню (NavigationDrawer)
-//        navigationView.setNavigationItemSelectedListener(this); //Слушатель на пункты меню
+        navigationView.setNavigationItemSelectedListener(this); //Слушатель на пункты меню
 
         //слушатель на выдвигание/задвигание, открытие/закрытие NavigationDrawer
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {

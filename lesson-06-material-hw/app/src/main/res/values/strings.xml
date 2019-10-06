@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Lesson 6 Material</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="fruits_titles">
+        <item>Яблоко</item>
+        <item>Банан</item>
+        <item>Груша</item>
+        <item>Виноград</item>
+        <item>Апельсин</item>
+        <item>Ананас</item>
+        <item>Абрикос</item>
+        <item>Персик</item>
+        <item>Арбуз</item>
+        <item>Киви</item>
+    </string-array>
+
+    <string-array name="fruits_descriptions">
+        <item>Из яблок делают шарлотку</item>
+        <item>Чтобы съесть банан надо снять кожуру</item>
+        <item>Груша похожа на лампочку</item>
+        <item>Виноград бывает с косточками</item>
+        <item>Апельсиновый сок очень вкусный</item>
+        <item>Ананасы растут в тропиках</item>
+        <item>Если высушить абрикос - получится курага</item>
+        <item>Персик-шмерсик</item>
+        <item>Порезать дольками и съесть</item>
+        <item>В киви много витамина С</item>
+    </string-array>
+</resources>

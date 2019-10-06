@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ru.mihassu.lesson6material.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/set_linear"
+        android:title="linear"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_view_list_black_24dp"
+        />
+
+    <item
+        android:id="@+id/set_grid"
+        android:title="grid"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_view_module_black_24dp"
+        />
+</menu>

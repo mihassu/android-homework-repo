@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="fruits_imgs">
+        <item>@drawable/apple</item>
+        <item>@drawable/banan</item>
+        <item>@drawable/pear</item>
+        <item>@drawable/grape</item>
+        <item>@drawable/orange</item>
+        <item>@drawable/ananas</item>
+        <item>@drawable/abrikos</item>
+        <item>@drawable/persik</item>
+        <item>@drawable/watermelon</item>
+        <item>@drawable/kiwi</item>
+    </integer-array>
+
+</resources>

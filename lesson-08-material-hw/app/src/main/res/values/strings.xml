@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lesson 8 Material</string>
+
+    <string name="button1">Кнопка 1</string>
+    <string name="button2">Кнопка 2</string>
+    <string name="button3">Кнопка 3</string>
+    <string name="button4">Кнопка 4</string>
+    <string name="button5">Кнопка 5</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+</resources>

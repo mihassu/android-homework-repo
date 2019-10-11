@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Lesson 7 Material</string>
+
+    <string name="fragment_1">Фрагмент 1</string>
+    <string name="fragment_2">Фрагмент 2</string>
+    <string name="fragment_3">Фрагмент 3</string>
+
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="tabs_titles">
+        <item>tab1</item>
+        <item>tab2</item>
+        <item>tab3</item>
+    </string-array>
+
+</resources>
